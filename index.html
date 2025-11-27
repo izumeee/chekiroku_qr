@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>チェキロク | チェキで記録。思い出集計</title>
+    <meta
+      name="description"
+      content="チェキ管理は「チェキロク」で完結！推し活の記録をスマホでコレクションできるアプリ。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --brand: #ff6b35;
+        --brand-light: #ff8c5a;
+        --accent: #ffb3d9;
+        --bg: #fff;
+        --text: #333;
+        --muted: #666;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Noto Sans JP", "Hiragino Sans", "Helvetica Neue", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      header {
+        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+        color: #fff;
+        padding: 2rem 1.5rem 3rem;
+        text-align: center;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      .logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.1em;
+      }
+      .tagline {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.95;
+      }
+      .main-message {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem;
+      }
+      .hero {
+        text-align: center;
+        padding: 3rem 0;
+      }
+      .hero h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 1rem;
+        color: var(--text);
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      .feature-card {
+        background: #fff;
+        border: 2px solid #f0f0f0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+      }
+      .feature-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: var(--brand);
+      }
+      .feature-card p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin: 0;
+      }
+      .other-features {
+        background: var(--brand);
+        color: #fff;
+        padding: 2rem 1.5rem;
+        margin: 3rem 0;
+        border-radius: 1rem;
+      }
+      .other-features h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+      }
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .feature-list li {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+      }
+      .cta {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+        color: #fff;
+        margin: 3rem 0;
+        border-radius: 1rem;
+      }
+      .cta h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+      .cta p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .download-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .download-buttons a {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background: #fff;
+        color: var(--brand);
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: transform 0.2s;
+      }
+      .download-buttons a:hover {
+        transform: translateY(-2px);
+      }
+      footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .provider {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">チェキロク</div>
+        <p class="tagline">~チェキで記録。思い出集計~</p>
+        <p class="main-message">集計するあなたに革命を。</p>
+        <p>チェキ管理は"チェキロク"で完結！</p>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <h1>推し活の記録をスマホでコレクション</h1>
+        <p>チェキ、写真、ブロマイドなど…推しとの思い出の数を記録しましょう！</p>
+      </section>
+      <section>
+        <div class="features">
+          <div class="feature-card">
+            <h3>簡単に記録</h3>
+            <p>シンプルな操作で簡単に記録！</p>
+          </div>
+          <div class="feature-card">
+            <h3>自動集計</h3>
+            <p>記録したデータは自動で集計！</p>
+          </div>
+          <div class="feature-card">
+            <h3>カテゴリ追加</h3>
+            <p>好きなカテゴリを追加可能！</p>
+          </div>
+        </div>
+      </section>
+      <section class="other-features">
+        <h2>その他機能も充実！</h2>
+        <ul class="feature-list">
+          <li>グループごとの集計が可能</li>
+          <li>名前の変更、グループ名の変更<br />兼任の場合も同じ人として集計が可能</li>
+          <li>集計結果の画像を生成する機能</li>
+          <li>アプリ全体のテーマカラーを変更する機能</li>
+        </ul>
+      </section>
+      <section class="cta">
+        <h2>DDも単推しも箱推しも</h2>
+        <p>推し活の記録をスマホでコレクションできる！</p>
+        <div class="download-buttons">
+          <a href="https://apple.co/4iFx7Wd" target="_blank" rel="noopener noreferrer" data-test="app-store">App Storeで検索</a>
+          <a href="https://play.google.com/store/apps/details?id=com.izumeee.chekiroku" target="_blank" rel="noopener noreferrer" data-test="google-play">Google Playで検索</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div>イズミアプリケーション</div>
+      <div class="provider">提供元: 泉俊希</div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // DOM構造が壊れていないかの簡易テスト
+        const testCases = [
+          {
+            name: "ロゴが存在する",
+            test: () => !!document.querySelector(".logo"),
+          },
+          {
+            name: "機能カードが3つ存在する",
+            test: () => document.querySelectorAll(".feature-card").length >= 3,
+          },
+          {
+            name: "ダウンロードボタンが存在する",
+            test: () => !!document.querySelector('[data-test="app-store"]'),
+          },
+        ];
+        const results = testCases.map((c) => ({ test: c.name, passed: c.test() }));
+        if (results.every((r) => r.passed)) {
+          console.info("Chekiroku LP smoke tests passed", results);
+        } else {
+          console.error("Chekiroku LP smoke tests failed", results);
+        }
+      });
+    </script>
+  </body>
+</html>
