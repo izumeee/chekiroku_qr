@@ -2,6 +2,7 @@ export const APP_STORE_URL = "https://apps.apple.com/jp/app/id6505026936";
 export const GOOGLE_PLAY_URL =
   "https://play.google.com/store/apps/details?id=com.izumeee.chekiroku";
 export const LANDING_PAGE_URL = "https://chekiroku.com/";
+export const ANALYTICS_HOST = "chekiroku.com";
 export const LEGACY_PAGES_HOST = "chekiroku-qr.pages.dev";
 export const LEGACY_QR_URL = "https://chekiroku.com/qr1";
 
@@ -93,6 +94,10 @@ function methodNotAllowed() {
 }
 
 function writeAnalytics(context, event) {
+  if (event.hostname !== ANALYTICS_HOST) {
+    return false;
+  }
+
   const dataset = context.env?.LINK_ANALYTICS;
   if (!dataset || typeof dataset.writeDataPoint !== "function") {
     return false;

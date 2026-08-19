@@ -42,6 +42,10 @@ Cloudflare Analytics Engineの `chekiroku_link_events` データセットへ、�
 
 IPアドレス、Cookie、URLに含まれるクエリ、リファラーのパスは保存しません。Analytics Engineのバインディング名は `LINK_ANALYTICS` です。
 
+計測対象ホストは `chekiroku.com` のみです。`*.pages.dev` のプレビューアクセスは記録しません。
+
+Pagesプロジェクトの設定は `wrangler.toml` を正本とし、`LINK_ANALYTICS` を `chekiroku_link_events` データセットへ接続します。
+
 キャンペーン識別子は、先頭がUnicodeの文字または数字で、以降が文字・数字・`.`・`_`・`-` の64文字以内です。既知のBotまたはCloudflareが確認済みのBotだけを `known_bot` とし、それ以外は人間と言い切らず `unclassified` として記録します。クリック数はGETリクエストだけを対象とし、HEADリクエストは記録しません。
 
 ## 集計例
@@ -56,6 +60,7 @@ SELECT
 FROM chekiroku_link_events
 WHERE timestamp >= NOW() - INTERVAL '7' DAY
   AND blob5 != 'known_bot'
+  AND blob8 = 'chekiroku.com'
 GROUP BY source, campaign
 ORDER BY visits DESC
 ```

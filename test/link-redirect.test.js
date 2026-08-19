@@ -156,6 +156,18 @@ test("Cookieとクエリを計測データへ保存しない", () => {
   assert.match(serialized, /example\.com/);
 });
 
+test("previewホストへのアクセスは本番データへ記録しない", () => {
+  const points = [];
+  const context = createContext({
+    url: "https://preview.chekiroku-qr.pages.dev/qr/event-2026",
+    analytics: { writeDataPoint: (point) => points.push(point) },
+  });
+
+  handleTrackedLink(context, { source: "qr", campaign: "event-2026" });
+
+  assert.equal(points.length, 0);
+});
+
 test("Pagesのエンコード済み日本語campaignを記録する", () => {
   const points = [];
   const context = createContext({
