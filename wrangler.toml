@@ -8,3 +8,7 @@ binding = "LINK_ANALYTICS"
 dataset = "chekiroku_link_events"
 
 [env.production]
+
+[[env.production.analytics_engine_datasets]]
+binding = "LINK_ANALYTICS"
+dataset = "chekiroku_link_events"
