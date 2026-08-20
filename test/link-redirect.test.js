@@ -229,6 +229,10 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
   assert.match(html, /rel="apple-touch-icon"[^>]+href="\/app-icon\.png"/);
   assert.doesNotMatch(html, /store-icon|store-copy/);
   assert.match(html, /property="og:title"/);
+  assert.match(
+    html,
+    /© 2024–2026 イズミアプリケーション<\/span><br>\s*<span>「チェキロク」は、イズミアプリケーションの登録商標です。<\/span><br>/,
+  );
   assert.doesNotMatch(html, /<script/i);
 });
 

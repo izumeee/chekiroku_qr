@@ -284,6 +284,7 @@ export function createDownloadPageResponse({
       </main>
       <footer>
         <span>© 2024–2026 イズミアプリケーション</span><br>
+        <span>「チェキロク」は、イズミアプリケーションの登録商標です。</span><br>
         <span>Apple、Appleのロゴ、App Storeは、米国およびその他の国で登録されたApple Inc.の商標です。Google PlayおよびGoogle Playロゴは、Google LLCの商標です。</span>
       </footer>
     </div>
