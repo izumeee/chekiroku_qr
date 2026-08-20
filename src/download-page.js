@@ -251,6 +251,7 @@ export function createDownloadPageResponse({
             <li>かんたん記録</li>
             <li>期間・カテゴリ別集計</li>
             <li>カレンダー</li>
+            <li>記念日管理</li>
             <li>SNSシェア</li>
           </ul>
           <div class="stores" aria-label="アプリをダウンロード">

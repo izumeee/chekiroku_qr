@@ -216,6 +216,10 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
     html,
     /<h1 id="page-title">数で記録、思い出集計<\/h1>/,
   );
+  assert.match(
+    html,
+    /<li>カレンダー<\/li>\s*<li>記念日管理<\/li>\s*<li>SNSシェア<\/li>/,
+  );
   assert.match(html, new RegExp(APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, new RegExp(GOOGLE_PLAY_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, /\/download-qr\.svg/);
