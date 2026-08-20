@@ -212,7 +212,10 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
   assert.equal(points[0].blobs[3], "download_page");
 
   const html = await desktopResponse.text();
-  assert.match(html, /会えた日のこと/);
+  assert.match(
+    html,
+    /<h1 id="page-title"><span class="line">数で記録、<\/span><span class="line">思い出集計<\/span><\/h1>/,
+  );
   assert.match(html, new RegExp(APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, new RegExp(GOOGLE_PLAY_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, /\/download-qr\.svg/);
@@ -268,7 +271,10 @@ test("トップページは端末にかかわらずホームページとして�
     assert.equal(response.headers.get("x-robots-tag"), null);
     assert.equal(response.headers.get("cache-control"), "no-store");
     assert.ok(html.includes(`href="${HOMEPAGE_URL}"`));
-    assert.match(html, /会えた日のこと/);
+    assert.match(
+      html,
+      /<h1 id="page-title"><span class="line">数で記録、<\/span><span class="line">思い出集計<\/span><\/h1>/,
+    );
     assert.doesNotMatch(html, /集計するあなたに革命を/);
   }
 });

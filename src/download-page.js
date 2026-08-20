@@ -246,7 +246,7 @@ export function createDownloadPageResponse({
       <main>
         <section aria-labelledby="page-title">
           <p class="eyebrow">推し活記録アプリ</p>
-          <h1 id="page-title"><span class="line">会えた日のこと、</span><span class="line">ちゃんと残しておこう。</span></h1>
+          <h1 id="page-title"><span class="line">数で記録、</span><span class="line">思い出集計</span></h1>
           <p class="lead">ライブやイベントで撮った枚数、会えた回数、出会ってからの日数まで。チェキロクなら、推しとの思い出をすばやく記録して、あとからきれいに集計できます。</p>
           <ul class="features" aria-label="主な機能">
             <li>かんたん記録</li>
