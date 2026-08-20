@@ -136,37 +136,17 @@ export function createDownloadPageResponse({
       .stores {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        align-items: center;
+        gap: 28px;
         margin-top: 34px;
       }
       .store {
-        min-width: 190px;
-        min-height: 59px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 16px;
-        border: 1px solid #171717;
-        border-radius: 13px;
-        color: #fff;
-        background: #171717;
+        display: inline-block;
+        line-height: 0;
         text-decoration: none;
-        box-shadow: 0 9px 22px rgba(0, 0, 0, .11);
-        transition: transform .16s ease, background-color .16s ease;
       }
-      .store:hover { transform: translateY(-2px); background: #2c2c2c; }
       .store:focus-visible { outline: 3px solid rgba(245, 138, 31, .5); outline-offset: 3px; }
-      .store-icon {
-        width: 27px;
-        height: 27px;
-        display: grid;
-        place-items: center;
-        font-size: 23px;
-        font-weight: 700;
-      }
-      .store-copy { display: grid; gap: 1px; }
-      .store-copy small { font-size: 10px; line-height: 1.1; opacity: .8; }
-      .store-copy strong { font-size: 17px; line-height: 1.15; letter-spacing: -.01em; }
+      .store img { display: block; width: auto; height: 54px; }
       .device-note { margin: 16px 0 0; color: #6f675e; font-size: 12px; }
       .download-card {
         position: relative;
@@ -249,13 +229,9 @@ export function createDownloadPageResponse({
       }
       @media (max-width: 470px) {
         h1 { font-size: clamp(28px, 8.7vw, 34px); }
-        .stores { display: grid; }
-        .store { width: 100%; }
+        .stores { align-items: flex-start; flex-direction: column; }
         .scan { grid-template-columns: 112px minmax(0, 1fr); gap: 17px; }
         .qr { width: 112px; height: 112px; padding: 7px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .store { transition: none; }
       }
     </style>
   </head>
@@ -278,12 +254,10 @@ export function createDownloadPageResponse({
           </ul>
           <div class="stores" aria-label="アプリをダウンロード">
             <a class="store" href="${appStore}" rel="noopener noreferrer" aria-label="App Storeからダウンロード">
-              <span class="store-icon" aria-hidden="true">A</span>
-              <span class="store-copy"><small>Download on the</small><strong>App Store</strong></span>
+              <img src="/app-store-badge-ja.svg" width="147" height="54" alt="">
             </a>
             <a class="store" href="${googlePlay}" rel="noopener noreferrer" aria-label="Google Playで手に入れよう">
-              <span class="store-icon" aria-hidden="true">▶</span>
-              <span class="store-copy"><small>GET IT ON</small><strong>Google Play</strong></span>
+              <img src="/google-play-badge-ja.svg" width="182" height="54" alt="">
             </a>
           </div>
           <p class="device-note">App StoreまたはGoogle Playから無料でダウンロードできます。</p>
@@ -307,7 +281,8 @@ export function createDownloadPageResponse({
         </aside>
       </main>
       <footer>
-        <span>© 2024–2026 イズミアプリケーション</span>
+        <span>© 2024–2026 イズミアプリケーション</span><br>
+        <span>Apple、Appleのロゴ、App Storeは、米国およびその他の国で登録されたApple Inc.の商標です。Google PlayおよびGoogle Playロゴは、Google LLCの商標です。</span>
       </footer>
     </div>
   </body>

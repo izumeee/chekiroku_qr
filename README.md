@@ -27,6 +27,11 @@
 
 ダウンロード案内ページには、App Store・Google Playへのリンクと、スマートフォンで `https://chekiroku.com/app` を開くQRコードを表示します。SNSプレビュー用のOpen Graphメタデータも同じページで返します。
 
+ストアバッジは、AppleのApp StoreマーケティングツールとGoogle Partner Marketing Hubから取得した日本語の公式SVGを、内容を変更せず使用します。
+
+- Apple: https://developer.apple.com/jp/app-store/marketing/guidelines/
+- Google Play: https://partnermarketinghub.withgoogle.com/brands/google-play/google-play/lockups-icons-badges/?folder=86718
+
 ## 計測データ
 
 Cloudflare Analytics Engineの `chekiroku_link_events` データセットへ、次の順序で保存します。

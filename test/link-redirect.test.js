@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { onRequest as onHomepageRequest } from "../functions/index.js";
@@ -215,6 +216,9 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
   assert.match(html, new RegExp(APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, new RegExp(GOOGLE_PLAY_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, /\/download-qr\.svg/);
+  assert.match(html, /\/app-store-badge-ja\.svg/);
+  assert.match(html, /\/google-play-badge-ja\.svg/);
+  assert.doesNotMatch(html, /store-icon|store-copy/);
   assert.match(html, /property="og:title"/);
   assert.doesNotMatch(html, /<script/i);
 });
@@ -231,6 +235,16 @@ test("ダウンロードページはクエリをcanonical URLへ含めない", a
   assert.match(html, /href="https:\/\/chekiroku\.com\/sns\/x"/);
   assert.doesNotMatch(html, /token=private/);
   assert.match(response.headers.get("content-security-policy"), /default-src 'none'/);
+});
+
+test("公式ストアバッジSVGを同梱する", async () => {
+  const [appStoreBadge, googlePlayBadge] = await Promise.all([
+    readFile(new URL("../app-store-badge-ja.svg", import.meta.url), "utf8"),
+    readFile(new URL("../google-play-badge-ja.svg", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(appStoreBadge, /Download_on_the_App_Store_Badge_JP/);
+  assert.match(googlePlayBadge, /aria-label="で手に入れよう"/);
 });
 
 test("トップページは端末にかかわらずホームページとして表示する", async () => {
