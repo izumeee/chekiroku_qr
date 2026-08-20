@@ -29,6 +29,8 @@ export function createDownloadPageResponse({
     <meta name="description" content="${PAGE_DESCRIPTION}">
     <meta name="theme-color" content="#f58a1f">
     <meta name="apple-itunes-app" content="app-id=6505026936">
+    <link rel="icon" type="image/png" sizes="384x384" href="/app-icon.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="/app-icon.png">
     <link rel="canonical" href="${canonical}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="チェキロク">

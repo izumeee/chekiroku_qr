@@ -218,6 +218,8 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
   assert.match(html, /\/download-qr\.svg/);
   assert.match(html, /\/app-store-badge-ja\.svg/);
   assert.match(html, /\/google-play-badge-ja\.svg/);
+  assert.match(html, /rel="icon"[^>]+href="\/app-icon\.png"/);
+  assert.match(html, /rel="apple-touch-icon"[^>]+href="\/app-icon\.png"/);
   assert.doesNotMatch(html, /store-icon|store-copy/);
   assert.match(html, /property="og:title"/);
   assert.doesNotMatch(html, /<script/i);
