@@ -19,8 +19,10 @@
 
 - iPhone・iPad・iPod: App Store
 - Android: Google Play
-- PC・判定不能な端末・SNSプレビューBot: `https://chekiroku.com/`
+- PC・判定不能な端末・SNSプレビューBot: アプリのダウンロード案内ページを表示
 - Analytics Engineが利用できない場合も転送を継続
+
+ダウンロード案内ページには、App Store・Google Playへのリンクと、スマートフォンで `https://chekiroku.com/app` を開くQRコードを表示します。SNSプレビュー用のOpen Graphメタデータも同じページで返します。
 
 ## 計測データ
 

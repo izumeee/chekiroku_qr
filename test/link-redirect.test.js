@@ -5,7 +5,6 @@ import { onRequest as onQrCampaignRequest } from "../functions/qr/[campaign].js"
 import {
   APP_STORE_URL,
   GOOGLE_PLAY_URL,
-  LANDING_PAGE_URL,
   LEGACY_QR_URL,
   classifyRequest,
   getReferrerHost,
@@ -101,10 +100,10 @@ test("getReferrerHostはホスト名だけを返す", () => {
   assert.equal(getReferrerHost(context.request), "x.com");
 });
 
-test("selectDestinationは既知BotをLPへ送る", () => {
+test("selectDestinationは既知Botにダウンロードページを返す", () => {
   assert.deepEqual(selectDestination({ device: "android", trafficType: "known_bot" }), {
-    name: "landing",
-    url: LANDING_PAGE_URL,
+    kind: "page",
+    name: "download_page",
   });
 });
 
@@ -192,20 +191,44 @@ test("iOSアクセスをApp Storeへ転送する", () => {
   assert.equal(response.headers.get("location"), APP_STORE_URL);
 });
 
-test("PCと判定不能なアクセスをLPへ転送する", () => {
+test("PCと判定不能なアクセスにダウンロードページを返す", async () => {
+  const points = [];
   const desktop = createContext({
     userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6)",
+    analytics: { writeDataPoint: (point) => points.push(point) },
   });
   const unknown = createContext({ userAgent: "unknown-client" });
 
-  assert.equal(
-    handleTrackedLink(desktop, { source: "app" }).headers.get("location"),
-    LANDING_PAGE_URL,
-  );
-  assert.equal(
-    handleTrackedLink(unknown, { source: "app" }).headers.get("location"),
-    LANDING_PAGE_URL,
-  );
+  const desktopResponse = handleTrackedLink(desktop, { source: "app" });
+  const unknownResponse = handleTrackedLink(unknown, { source: "app" });
+
+  assert.equal(desktopResponse.status, 200);
+  assert.match(desktopResponse.headers.get("content-type"), /text\/html/);
+  assert.equal(desktopResponse.headers.get("location"), null);
+  assert.equal(unknownResponse.status, 200);
+  assert.equal(points[0].blobs[3], "download_page");
+
+  const html = await desktopResponse.text();
+  assert.match(html, /会えた日のこと/);
+  assert.match(html, new RegExp(APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(html, new RegExp(GOOGLE_PLAY_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(html, /\/download-qr\.svg/);
+  assert.match(html, /property="og:title"/);
+  assert.doesNotMatch(html, /<script/i);
+});
+
+test("ダウンロードページはクエリをcanonical URLへ含めない", async () => {
+  const context = createContext({
+    url: "https://chekiroku.com/sns/x?token=private",
+    userAgent: "Twitterbot/1.0",
+  });
+  const response = handleTrackedLink(context, { source: "sns", campaign: "x" });
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /href="https:\/\/chekiroku\.com\/sns\/x"/);
+  assert.doesNotMatch(html, /token=private/);
+  assert.match(response.headers.get("content-security-policy"), /default-src 'none'/);
 });
 
 test("HEADは計測せずGETと同じ転送先を返す", () => {
@@ -219,6 +242,20 @@ test("HEADは計測せずGETと同じ転送先を返す", () => {
 
   assert.equal(response.status, 302);
   assert.equal(response.headers.get("location"), GOOGLE_PLAY_URL);
+  assert.equal(points.length, 0);
+});
+
+test("PCのHEADは本文なしのダウンロードページを返し計測しない", async () => {
+  const points = [];
+  const context = createContext({
+    method: "HEAD",
+    userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6)",
+    analytics: { writeDataPoint: (point) => points.push(point) },
+  });
+  const response = handleTrackedLink(context, { source: "app" });
+
+  assert.equal(response.status, 200);
+  assert.equal(await response.text(), "");
   assert.equal(points.length, 0);
 });
 

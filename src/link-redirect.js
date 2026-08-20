@@ -1,7 +1,8 @@
+import { createDownloadPageResponse } from "./download-page.js";
+
 export const APP_STORE_URL = "https://apps.apple.com/jp/app/id6505026936";
 export const GOOGLE_PLAY_URL =
   "https://play.google.com/store/apps/details?id=com.izumeee.chekiroku";
-export const LANDING_PAGE_URL = "https://chekiroku.com/";
 export const ANALYTICS_HOST = "chekiroku.com";
 export const LEGACY_PAGES_HOST = "chekiroku-qr.pages.dev";
 export const LEGACY_QR_URL = "https://chekiroku.com/qr1";
@@ -60,18 +61,18 @@ export function getReferrerHost(request) {
 
 export function selectDestination({ device, trafficType }) {
   if (trafficType === "known_bot") {
-    return { name: "landing", url: LANDING_PAGE_URL };
+    return { kind: "page", name: "download_page" };
   }
 
   if (device === "android") {
-    return { name: "google_play", url: GOOGLE_PLAY_URL };
+    return { kind: "redirect", name: "google_play", url: GOOGLE_PLAY_URL };
   }
 
   if (device === "ios") {
-    return { name: "app_store", url: APP_STORE_URL };
+    return { kind: "redirect", name: "app_store", url: APP_STORE_URL };
   }
 
-  return { name: "landing", url: LANDING_PAGE_URL };
+  return { kind: "page", name: "download_page" };
 }
 
 function redirect(location) {
@@ -152,7 +153,16 @@ export function handleTrackedLink(context, { source, campaign = "default" }) {
     });
   }
 
-  return redirect(destination.url);
+  if (destination.kind === "redirect") {
+    return redirect(destination.url);
+  }
+
+  return createDownloadPageResponse({
+    method: request.method,
+    canonicalUrl: `${url.origin}${url.pathname}`,
+    appStoreUrl: APP_STORE_URL,
+    googlePlayUrl: GOOGLE_PLAY_URL,
+  });
 }
 
 export function handleLegacyQr1(context) {
