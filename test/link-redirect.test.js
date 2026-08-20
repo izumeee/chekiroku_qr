@@ -214,7 +214,7 @@ test("PCと判定不能なアクセスにダウンロードページを返す", 
   const html = await desktopResponse.text();
   assert.match(
     html,
-    /<h1 id="page-title"><span class="line">数で記録、<\/span><span class="line">思い出集計<\/span><\/h1>/,
+    /<h1 id="page-title">数で記録、思い出集計<\/h1>/,
   );
   assert.match(html, new RegExp(APP_STORE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(html, new RegExp(GOOGLE_PLAY_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
@@ -273,7 +273,7 @@ test("トップページは端末にかかわらずホームページとして�
     assert.ok(html.includes(`href="${HOMEPAGE_URL}"`));
     assert.match(
       html,
-      /<h1 id="page-title"><span class="line">数で記録、<\/span><span class="line">思い出集計<\/span><\/h1>/,
+      /<h1 id="page-title">数で記録、思い出集計<\/h1>/,
     );
     assert.doesNotMatch(html, /集計するあなたに革命を/);
   }

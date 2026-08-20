@@ -109,8 +109,8 @@ export function createDownloadPageResponse({
         font-size: clamp(42px, 3.8vw, 58px);
         line-height: 1.16;
         letter-spacing: -.045em;
+        white-space: nowrap;
       }
-      h1 .line { display: block; white-space: nowrap; }
       .lead {
         max-width: 590px;
         margin: 28px 0 0;
@@ -225,12 +225,11 @@ export function createDownloadPageResponse({
         .page { width: min(100% - 32px, 640px); }
         .brand { padding: 22px 0; }
         main { grid-template-columns: 1fr; gap: 42px; padding: 28px 0 54px; }
-        h1 { font-size: clamp(38px, 12vw, 54px); }
+        h1 { font-size: clamp(28px, 9vw, 54px); }
         .lead { font-size: 16px; }
         .download-card { padding: 26px; border-radius: 26px; }
       }
       @media (max-width: 470px) {
-        h1 { font-size: clamp(28px, 8.7vw, 34px); }
         .stores { align-items: flex-start; flex-direction: column; }
         .scan { grid-template-columns: 112px minmax(0, 1fr); gap: 17px; }
         .qr { width: 112px; height: 112px; padding: 7px; }
@@ -246,7 +245,7 @@ export function createDownloadPageResponse({
       <main>
         <section aria-labelledby="page-title">
           <p class="eyebrow">推し活記録アプリ</p>
-          <h1 id="page-title"><span class="line">数で記録、</span><span class="line">思い出集計</span></h1>
+          <h1 id="page-title">数で記録、思い出集計</h1>
           <p class="lead">ライブやイベントで撮った枚数、会えた回数、出会ってからの日数まで。チェキロクなら、推しとの思い出をすばやく記録して、あとからきれいに集計できます。</p>
           <ul class="features" aria-label="主な機能">
             <li>かんたん記録</li>
