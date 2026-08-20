@@ -15,6 +15,7 @@ export function createDownloadPageResponse({
   canonicalUrl,
   appStoreUrl,
   googlePlayUrl,
+  indexable = false,
 }) {
   const canonical = escapeHtml(canonicalUrl);
   const appStore = escapeHtml(appStoreUrl);
@@ -285,7 +286,7 @@ export function createDownloadPageResponse({
               <span class="store-copy"><small>GET IT ON</small><strong>Google Play</strong></span>
             </a>
           </div>
-          <p class="device-note">スマートフォンでこのリンクを開くと、対応するストアへ直接移動します。</p>
+          <p class="device-note">App StoreまたはGoogle Playから無料でダウンロードできます。</p>
         </section>
         <aside class="download-card" aria-label="スマートフォンでダウンロード">
           <div class="app-summary">
@@ -312,17 +313,19 @@ export function createDownloadPageResponse({
   </body>
 </html>`;
 
-  return new Response(body, {
-    status: 200,
-    headers: {
-      "Cache-Control": "no-store",
-      "Content-Security-Policy":
-        "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
-      "Content-Type": "text/html; charset=UTF-8",
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Referrer-Policy": "no-referrer",
-      "X-Content-Type-Options": "nosniff",
-      "X-Robots-Tag": "noindex, nofollow",
-    },
-  });
+  const headers = {
+    "Cache-Control": "no-store",
+    "Content-Security-Policy":
+      "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    "Content-Type": "text/html; charset=UTF-8",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Referrer-Policy": "no-referrer",
+    "X-Content-Type-Options": "nosniff",
+  };
+
+  if (!indexable) {
+    headers["X-Robots-Tag"] = "noindex, nofollow";
+  }
+
+  return new Response(body, { status: 200, headers });
 }

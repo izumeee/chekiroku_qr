@@ -6,6 +6,7 @@ export const GOOGLE_PLAY_URL =
 export const ANALYTICS_HOST = "chekiroku.com";
 export const LEGACY_PAGES_HOST = "chekiroku-qr.pages.dev";
 export const LEGACY_QR_URL = "https://chekiroku.com/qr1";
+export const HOMEPAGE_URL = "https://chekiroku.com/";
 
 const BOT_PATTERN =
   /bot|crawler|spider|preview|facebookexternalhit|slackbot|discordbot|telegrambot|skypeuripreview|whatsapp/i;
@@ -162,6 +163,21 @@ export function handleTrackedLink(context, { source, campaign = "default" }) {
     canonicalUrl: `${url.origin}${url.pathname}`,
     appStoreUrl: APP_STORE_URL,
     googlePlayUrl: GOOGLE_PLAY_URL,
+  });
+}
+
+export function handleHomepage(context) {
+  const { request } = context;
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return methodNotAllowed();
+  }
+
+  return createDownloadPageResponse({
+    method: request.method,
+    canonicalUrl: HOMEPAGE_URL,
+    appStoreUrl: APP_STORE_URL,
+    googlePlayUrl: GOOGLE_PLAY_URL,
+    indexable: true,
   });
 }
 

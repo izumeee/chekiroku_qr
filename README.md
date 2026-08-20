@@ -6,6 +6,7 @@
 
 | URL | 流入元 | 用途 |
 |---|---|---|
+| `https://chekiroku.com/` | ― | アプリのホームページ |
 | `https://chekiroku.com/app` | `app` | 汎用リンク |
 | `https://chekiroku.com/qr` | `qr` | QRコード共通リンク |
 | `https://chekiroku.com/sns` | `sns` | SNS共通リンク |
@@ -14,6 +15,8 @@
 | `https://chekiroku.com/qr1` | `qr / legacy-qr1` | 既存QRコード互換リンク |
 
 既存の `https://chekiroku-qr.pages.dev/qr1` は `https://chekiroku.com/qr1` へ転送します。
+
+トップページは端末にかかわらずホームページを表示します。`/app`・`/qr`・`/sns` 以下だけが端末に応じてストアまたはダウンロード案内へ分岐し、流入を計測します。
 
 ## 転送ルール
 

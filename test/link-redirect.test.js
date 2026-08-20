@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { onRequest as onHomepageRequest } from "../functions/index.js";
 import { onRequest as onQrCampaignRequest } from "../functions/qr/[campaign].js";
 import {
   APP_STORE_URL,
   GOOGLE_PLAY_URL,
+  HOMEPAGE_URL,
   LEGACY_QR_URL,
   classifyRequest,
   getReferrerHost,
@@ -229,6 +231,49 @@ test("ダウンロードページはクエリをcanonical URLへ含めない", a
   assert.match(html, /href="https:\/\/chekiroku\.com\/sns\/x"/);
   assert.doesNotMatch(html, /token=private/);
   assert.match(response.headers.get("content-security-policy"), /default-src 'none'/);
+});
+
+test("トップページは端末にかかわらずホームページとして表示する", async () => {
+  const userAgents = [
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0)",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6)",
+  ];
+
+  for (const userAgent of userAgents) {
+    const context = createContext({
+      url: "https://chekiroku.com/?utm_source=test",
+      userAgent,
+    });
+    const response = onHomepageRequest(context);
+    const html = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("location"), null);
+    assert.equal(response.headers.get("x-robots-tag"), null);
+    assert.equal(response.headers.get("cache-control"), "no-store");
+    assert.ok(html.includes(`href="${HOMEPAGE_URL}"`));
+    assert.match(html, /会えた日のこと/);
+    assert.doesNotMatch(html, /集計するあなたに革命を/);
+  }
+});
+
+test("トップページのHEADは本文を返さない", async () => {
+  const response = onHomepageRequest(
+    createContext({ url: HOMEPAGE_URL, method: "HEAD" }),
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(await response.text(), "");
+  assert.equal(response.headers.get("x-robots-tag"), null);
+});
+
+test("トップページは許可していないHTTPメソッドを拒否する", () => {
+  const response = onHomepageRequest(
+    createContext({ url: HOMEPAGE_URL, method: "POST" }),
+  );
+
+  assert.equal(response.status, 405);
+  assert.equal(response.headers.get("allow"), "GET, HEAD");
 });
 
 test("HEADは計測せずGETと同じ転送先を返す", () => {
